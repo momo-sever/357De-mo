@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace _357Demo
 {
@@ -15,6 +16,7 @@ namespace _357Demo
             int lint;
             while (true)//判断行里面的火柴是否取完和是否已经到最后一行
             {
+                #region 粗略的显示 三行情况
                 for (int ii = 0; ii < array.Length; ii++)
                 {
                     for (int j = 0; j < array[ii]; j++)
@@ -23,6 +25,7 @@ namespace _357Demo
                     }
                     Console.WriteLine();
                 }
+                #endregion
                 user = game == true ? "一" : "二";
                 Console.WriteLine($"玩家{user}：请输入要拿取得火柴行数：（1，2，3）");
                 lint = Convert.ToInt32(Console.ReadLine()) - 1;//获取输入转成int
