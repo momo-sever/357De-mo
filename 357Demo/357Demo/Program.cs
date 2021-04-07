@@ -8,12 +8,11 @@ namespace _357Demo
         static void Main(string[] args)
         {
             int[] array = { 3, 5, 7 }; // 三行
-            int[] array1;
-            int i = 0; //游戏开始时 从第一行开始拿
+            int[] sortArray; //排序后的
             bool game = true; //true 玩家一 false 玩家二
             string user; //声明变量存储玩家名字
             int num; //玩家输入
-            int lint;
+            int lint;//选择取出的行数
             while (true)//判断行里面的火柴是否取完和是否已经到最后一行
             {
                 #region 粗略的显示 三行情况
@@ -43,8 +42,8 @@ namespace _357Demo
                 }
                 array[lint] -= num; //取走火柴
                 game = !game; //切换玩家身份
-                array1 = array.OrderByDescending(n => n).ToArray(); //倒序排序
-                if (array1[0] == 0)
+                sortArray = array.OrderByDescending(n => n).ToArray(); //倒序排序
+                if (sortArray[0] == 0)
                 {
                     Console.WriteLine($"玩家{user}输了");
                     break;
