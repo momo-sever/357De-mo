@@ -7,30 +7,44 @@ namespace _357Demo
         static void Main(string[] args)
         {
             int[] array = { 3, 5, 7 }; // 三行
+            int[] array1;
             int i = 0; //游戏开始时 从第一行开始拿
             bool game = true; //true 玩家一 false 玩家二
             string user; //声明变量存储玩家名字
             int num; //玩家输入
-            while (array[i] > 0 && i <= 2)//判断行里面的火柴是否取完和是否已经到最后一行
+            int lint;
+            while (true)//判断行里面的火柴是否取完和是否已经到最后一行
             {
-                user = game == true ? "玩家一" : "玩家二";
-                Console.WriteLine($"玩家{user}：请输入要拿取得火柴根数：");
-                num = Convert.ToInt32(Console.ReadLine());//获取输入转成int
-                while (num > array[i]) // 判断输入的值是否合法
+                for (int ii = 0; ii < array.Length; ii++)
                 {
-                    Console.WriteLine($"第{i}行只有{array[i]}根火柴，请重新输入：");
+                    for (int j = 0; j < array[ii]; j++)
+                    {
+                        Console.Write("*");
+                    }
+                    Console.WriteLine();
+                }
+                user = game == true ? "一" : "二";
+                Console.WriteLine($"玩家{user}：请输入要拿取得火柴行数：（1，2，3）");
+                lint = Convert.ToInt32(Console.ReadLine()) - 1;//获取输入转成int
+                while (lint > 3 || array[lint] == 0) // 判断输入的值是否合法
+                {
+                    Console.WriteLine($"只有三行或本行已经取完，请重新输入：");
+                    lint = Convert.ToInt32(Console.ReadLine()) - 1;
+                }
+                Console.WriteLine($"玩家{user}：请输入要拿取得火柴数，第{lint + 1}行有{array[lint]}根火柴：");
+                num = Convert.ToInt32(Console.ReadLine());//获取输入转成int
+                while (num > array[lint]) // 判断输入的值是否合法
+                {
+                    Console.WriteLine($"只有{array[lint]}，请重新输入：");
                     num = Convert.ToInt32(Console.ReadLine());
                 }
-                array[i] -= num; //取走火柴
+                array[lint] -= num; //取走火柴
                 game = !game; //切换玩家身份
-                if (array[i] == 0) //是否取完本行
+                array1 = array.OrderByDescending(n => n).ToArray(); //倒序排序
+                if (array1[0] == 0)
                 {
-                    if (i == 2) //是否是最后一行
-                    {
-                        Console.WriteLine($"{user}输了");
-                        break;
-                    }
-                    i++;
+                    Console.WriteLine($"玩家{user}输了");
+                    break;
                 }
             }
             Console.ReadLine();
